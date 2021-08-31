@@ -13,9 +13,13 @@ function App() {
     { id: 4, title: "JavaScript 4", body: "Description" },
   ]);
 
-   const createPost = newPost => {
-     setPosts([...posts, newPost ])
-   }
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost]);
+  };
+
+  const removePost = (post) => {
+    setPosts(posts.filter((p) => p.id !== post.id));
+  };
 
   return (
     <div className="App">
@@ -28,8 +32,12 @@ function App() {
         <ClassCounter />
       </div>
 
-      <PostForm create={createPost}/>
-      <PostList posts={posts} title="Список постов 1" />
+      <PostForm create={createPost} />
+      {posts.length !== 0 ? (
+        <PostList remove={removePost} posts={posts} title="Список постов 1" />
+      ) : (
+        <div style={{marginTop: '50px', textAlign: 'center', fontSize: '30px'}}>Posts not found</div>
+      )}
     </div>
   );
 }

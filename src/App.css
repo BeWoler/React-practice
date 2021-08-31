@@ -7,10 +7,11 @@
 .App {
   display: flex;
   flex-direction: column;
+  width: 800px;
 }
 
 .component__box {
-  margin: 10px 30px 30px 30px;
+  margin: 30px;
 }
 
 #root {
