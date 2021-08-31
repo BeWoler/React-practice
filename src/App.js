@@ -2,13 +2,12 @@ import { useState } from "react";
 import "./App.css";
 import ClassCounter from "./components/ClassCounter";
 import Counter from "./components/Counter";
-import PostItem from "./components/PostItem";
 import PostList from "./components/PostList";
 import MyButton from "./components/UI/button/MyButton";
 import MyInput from "./components/UI/input/MyInput";
 
 function App() {
-  const [title, setTitle] = useState('');
+  const [post, setPost] = useState({ title: "", body: "" });
   const [posts, setPosts] = useState([
     { id: 1, title: "JavaScript", body: "Description" },
     { id: 2, title: "JavaScript 2", body: "Description" },
@@ -18,7 +17,8 @@ function App() {
 
   const addNewPost = (e) => {
     e.preventDefault();
-    console.log(title);
+    setPosts([...posts, { ...post, id: Date.now() }]);
+    setPost({ title: "", body: "" });
   };
   return (
     <div className="App">
@@ -30,18 +30,27 @@ function App() {
         <h2>Class component</h2>
         <ClassCounter />
       </div>
+
       <form>
         <MyInput
-          value={title}
+          value={post.title}
           type="text"
-          placeholder="Post name"
+          placeholder="Post title"
           onChange={(e) => {
-            setTitle(e.target.value);
+            setPost({ ...post, title: e.target.value });
           }}
         />
-        <MyInput type="text" placeholder="Post name" />
+        <MyInput
+          value={post.body}
+          type="text"
+          placeholder="Post body"
+          onChange={(e) => {
+            setPost({ ...post, body: e.target.value });
+          }}
+        />
         <MyButton onClick={addNewPost}>Создать пост</MyButton>
       </form>
+
       <PostList posts={posts} title="Список постов 1" />
     </div>
   );
