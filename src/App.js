@@ -4,6 +4,7 @@ import ClassCounter from "./components/ClassCounter";
 import Counter from "./components/Counter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
+import MySelect from "./components/UI/select/MySelect";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -13,6 +14,7 @@ function App() {
     { id: 4, title: "JavaScript 4", body: "Description" },
   ]);
 
+  const [selectedSort, setSelectedSort] = useState('');
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
   };
@@ -20,6 +22,11 @@ function App() {
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
+
+  const sortPosts = sort => {
+    setSelectedSort(sort);
+    setPosts([...posts].sort((a, b) => a[sort].localeCompare()))
+  }
 
   return (
     <div className="App">
@@ -33,6 +40,16 @@ function App() {
       </div>
 
       <PostForm create={createPost} />
+      <hr style={{margin: '15px 0'}}/>
+      <MySelect 
+        value={selectedSort}
+        onChange={sortPosts}
+        defaultValue="Сортировка по"
+        options={[
+          {value: 'title', name: 'По названию'},
+          {value: 'body', name: 'По описанию'}
+        ]}
+      />
       {posts.length !== 0 ? (
         <PostList remove={removePost} posts={posts} title="Список постов 1" />
       ) : (
