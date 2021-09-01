@@ -8,10 +8,10 @@ import MySelect from "./components/UI/select/MySelect";
 
 function App() {
   const [posts, setPosts] = useState([
-    { id: 1, title: "JavaScript", body: "Description" },
-    { id: 2, title: "JavaScript 2", body: "Description" },
-    { id: 3, title: "JavaScript 5", body: "Description" },
-    { id: 4, title: "JavaScript 4", body: "Description" },
+    { id: 1, title: "aa", body: "Hello" },
+    { id: 2, title: "bb 2", body: "Bye" },
+    { id: 3, title: "ff 5", body: "Good" },
+    { id: 4, title: "gg 4", body: "Okay" },
   ]);
 
   const [selectedSort, setSelectedSort] = useState('');
