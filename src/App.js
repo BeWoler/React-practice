@@ -1,7 +1,8 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import "./App.css";
 import ClassCounter from "./components/ClassCounter";
 import Counter from "./components/Counter";
+import { usePosts } from "./components/hooks/usePosts";
 import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
@@ -9,31 +10,10 @@ import MyButton from "./components/UI/button/MyButton";
 import MyModal from "./components/UI/modal/MyModal";
 
 function App() {
-  const [posts, setPosts] = useState([
-    { id: 1, title: "aa", body: "Hello" },
-    { id: 2, title: "bb 2", body: "Bye" },
-    { id: 3, title: "ff 5", body: "Good" },
-    { id: 4, title: "gg 4", body: "Okay" },
-  ]);
-
+  const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ sort: "", query: "" });
   const [modal, setModal] = useState(false);
-
-  const sortedPosts = useMemo(() => {
-    console.log("gg");
-    if (filter.sort) {
-      return [...posts].sort((a, b) =>
-        a[filter.sort].localeCompare(b[filter.sort])
-      );
-    }
-    return posts;
-  }, [filter.sort, posts]);
-
-  const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter((post) =>
-      post.title.toLowerCase().includes(filter.query)
-    );
-  }, [filter.query, sortedPosts]);
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
@@ -46,14 +26,14 @@ function App() {
 
   return (
     <div className="App">
-      {/* <div className="component__box">
+      <div className="component__box">
         <h2>Functional component</h2>
         <Counter />
       </div>
       <div className="component__box">
         <h2>Class component</h2>
         <ClassCounter />
-      </div> */}
+      </div>
       <MyButton onClick={() => setModal(true)} style={{ maxWidth: "200px" }}>
         Создать пользователя
       </MyButton>
