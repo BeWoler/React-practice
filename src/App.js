@@ -5,6 +5,8 @@ import Counter from "./components/Counter";
 import PostFilter from "./components/PostFilter";
 import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
+import MyButton from "./components/UI/button/MyButton";
+import MyModal from "./components/UI/modal/MyModal";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -15,6 +17,7 @@ function App() {
   ]);
 
   const [filter, setFilter] = useState({ sort: "", query: "" });
+  const [modal, setModal] = useState(false);
 
   const sortedPosts = useMemo(() => {
     console.log("gg");
@@ -34,6 +37,7 @@ function App() {
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
+    setModal(false);
   };
 
   const removePost = (post) => {
@@ -42,31 +46,27 @@ function App() {
 
   return (
     <div className="App">
-      <div className="component__box">
+      {/* <div className="component__box">
         <h2>Functional component</h2>
         <Counter />
       </div>
       <div className="component__box">
         <h2>Class component</h2>
         <ClassCounter />
-      </div>
-
-      <PostForm create={createPost} />
+      </div> */}
+      <MyButton onClick={() => setModal(true)} style={{ maxWidth: "200px" }}>
+        Создать пользователя
+      </MyButton>
+      <MyModal visible={modal} setVisible={setModal}>
+        <PostForm create={createPost} />
+      </MyModal>
       <hr style={{ margin: "15px 0" }} />
       <PostFilter filter={filter} setFilter={setFilter} />
-      {sortedAndSearchedPosts.length !== 0 ? (
-        <PostList
-          remove={removePost}
-          posts={sortedAndSearchedPosts}
-          title="Список постов 1"
-        />
-      ) : (
-        <div
-          style={{ marginTop: "50px", textAlign: "center", fontSize: "30px" }}
-        >
-          Posts not found
-        </div>
-      )}
+      <PostList
+        remove={removePost}
+        posts={sortedAndSearchedPosts}
+        title="Список постов 1"
+      />
     </div>
   );
 }
