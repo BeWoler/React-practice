@@ -8,6 +8,7 @@ import PostForm from "./components/PostForm";
 import PostList from "./components/PostList";
 import MyButton from "./components/UI/button/MyButton";
 import MyModal from "./components/UI/modal/MyModal";
+import axios from 'axios';
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -24,6 +25,11 @@ function App() {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
 
+  async function fetchPosts() {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    setPosts(response.data)
+  }
+
   return (
     <div className="App">
       <div className="component__box">
@@ -34,6 +40,7 @@ function App() {
         <h2>Class component</h2>
         <ClassCounter />
       </div>
+      <MyButton onClick={fetchPosts} style={{margin: "20px 0px", maxWidth: "200px"}}>GET POSTS</MyButton>
       <MyButton onClick={() => setModal(true)} style={{ maxWidth: "200px" }}>
         Создать пользователя
       </MyButton>
