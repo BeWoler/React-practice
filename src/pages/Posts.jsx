@@ -76,7 +76,7 @@ function Posts() {
         <PostList
           remove={removePost}
           posts={sortedAndSearchedPosts}
-          title="Список постов 1"
+          title="Posts List"
         />
       )}
       <Pagination page={page} changePage={changePage} totalPages={totalPages} />
