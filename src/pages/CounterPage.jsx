@@ -2,7 +2,7 @@ import React from "react";
 import Counter from "../components/Counter";
 import ClassCounter from "../components/ClassCounter";
 
-const CounterComponent = () => {
+const CounterPage = () => {
   return (
     <div>
       <div className="component__box">
@@ -17,4 +17,4 @@ const CounterComponent = () => {
   );
 };
 
-export default CounterComponent;
+export default CounterPage;
